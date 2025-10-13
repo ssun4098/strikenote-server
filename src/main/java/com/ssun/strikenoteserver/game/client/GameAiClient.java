@@ -25,7 +25,6 @@ public class GameAiClient {
 
     private static final String PROMPT = """
             Respond strictly in JSON format as shown below.
-            Do not include extra text, explanations, or comments.
             {
                 "result": "success",               // or "failure"
                 "gameCount": number,               // total number of games
@@ -35,9 +34,9 @@ public class GameAiClient {
                         "frames": [
                             {
                                 "frameNumber": number,
-                                "firstRoll": string,
-                                "secondRoll": string,
-                                "thirdRoll": string or null,
+                                "firstRoll": int, // strike is 10
+                                "secondRoll": int, // strike or spare is 10
+                                "thirdRoll": int, // strike is 10
                                 "frameScore": number,
                                 "cumulativeScore": number,
                                 "isStrike": boolean,

@@ -27,35 +27,32 @@ public class GameAnalysisResponse {
 
         @JsonProperty("spares")
         private Integer spares;
-
-        @JsonProperty("analysis")
-        private String analysis;
     }
 
     @Getter
     public static class FrameDto {
         @JsonProperty("frameNumber")
-        private Integer frameNumber;
+        private int frameNumber;
 
         @JsonProperty("firstRoll")
-        private String firstRoll;
+        private int firstRoll;
 
         @JsonProperty("secondRoll")
-        private String secondRoll;
+        private int secondRoll;
 
         @JsonProperty("thirdRoll")
-        private String thirdRoll; // 10번째 프레임용
+        private int thirdRoll; // 10번째 프레임용
 
         @JsonProperty("frameScore")
-        private Integer frameScore;
+        private int frameScore;
 
         @JsonProperty("cumulativeScore")
-        private Integer cumulativeScore;
+        private int cumulativeScore;
 
         @JsonProperty("isStrike")
-        private Boolean isStrike;
+        private boolean isStrike;
 
         @JsonProperty("isSpare")
-        private Boolean isSpare;
+        private boolean isSpare;
     }
 }
