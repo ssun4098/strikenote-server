@@ -5,6 +5,7 @@ import com.ssun.strikenoteserver.game.dto.GameCreateResponse;
 import com.ssun.strikenoteserver.game.service.GameService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -21,10 +22,12 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureRestDocs
 @WebMvcTest(GameController.class)
 class GameControllerTest {
      @MockitoBean
@@ -222,7 +225,10 @@ class GameControllerTest {
                   .andExpect(jsonPath(("$.games[0].frames[10].firstScore")).value(8))
                   .andExpect(jsonPath(("$.games[0].frames[10].secondScore")).value(2))
                   .andExpect(jsonPath(("$.games[0].frames[10].strike")).value(false))
-                  .andExpect(jsonPath(("$.games[0].frames[10].spare")).value(true));
+                  .andExpect(jsonPath(("$.games[0].frames[10].spare")).value(true))
+
+                  .andDo(document("game-create"));
+
 
      }
 }
