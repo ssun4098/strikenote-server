@@ -1,0 +1,17 @@
+=Strike Note API Documentation
+:doctype: book
+:icons:font
+:source-highlighter: highlightjs
+:toc: left
+
+== API Endpoints
+
+=== Game Create API
+
+==== Request
+
+include::{snippets}/game-create/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/game-create/http-response.adoc[]

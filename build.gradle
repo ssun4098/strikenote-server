@@ -59,4 +59,9 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
     inputs.dir snippetsDir
     dependsOn test
+
+    sourceDir = file('src/docs')          // ← index.adoc이 있는 폴더 지정
+    outputDir = file('build/docs')        // ← 결과 HTML이 저장될 위치 지정
+
+    attributes 'snippets': snippetsDir    // ← {snippets} 변수를 snippetsDir로 치환
 }

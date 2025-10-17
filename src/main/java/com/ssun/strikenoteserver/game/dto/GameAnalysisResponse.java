@@ -3,6 +3,7 @@ package com.ssun.strikenoteserver.game.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class GameAnalysisResponse {
     private List<GameAnalysisDto> games;
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class GameAnalysisDto {
         @JsonProperty("totalScore")
@@ -32,6 +34,7 @@ public class GameAnalysisResponse {
     }
 
     @Getter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class FrameDto {
         @JsonProperty("frameNumber")
