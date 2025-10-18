@@ -140,7 +140,7 @@ class GameControllerTest {
                           .build());
           //when & then
           mockMvc.perform(multipart("/api/games")
-                  .file((MockMultipartFile) request.getImage())
+                  .file((MockMultipartFile) request.image())
                   .contentType(MediaType.MULTIPART_FORM_DATA))
                   .andExpect(status().isCreated())
                   .andExpect(jsonPath(("$.result")).value(result))

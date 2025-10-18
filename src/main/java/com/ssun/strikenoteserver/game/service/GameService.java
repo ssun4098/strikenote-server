@@ -5,9 +5,12 @@ import com.ssun.strikenoteserver.game.client.GameAiClient;
 import com.ssun.strikenoteserver.game.dto.GameAnalysisResponse;
 import com.ssun.strikenoteserver.game.dto.GameCreateRequest;
 import com.ssun.strikenoteserver.game.dto.GameCreateResponse;
+import com.ssun.strikenoteserver.game.dto.GameSearchResponse;
 import com.ssun.strikenoteserver.game.entity.GameEntity;
 import com.ssun.strikenoteserver.game.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +27,7 @@ public class GameService {
 
     @Transactional
     public GameCreateResponse createGame(GameCreateRequest request) {
-        MultipartFile image = request.getImage();
+        MultipartFile image = request.image();
 
         // 이미지 바이트 배열 추출
         byte[] imageBytes;
@@ -53,5 +56,11 @@ public class GameService {
                 .map(gameRepository::save)
                 .toList();
         return GameCreateResponse.from("success", savedGames);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameSearchResponse> searchGames( Pageable pageable) {
+        Page<GameEntity> games = gameRepository.findAll(pageable);
+        return games.stream().map(GameSearchResponse::fromEntity).toList();
     }
 }
