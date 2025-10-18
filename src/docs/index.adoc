@@ -15,3 +15,13 @@ include::{snippets}/game-create/http-request.adoc[]
 ==== Response
 
 include::{snippets}/game-create/http-response.adoc[]
+
+== Game Search API
+
+=== Request
+
+include::{snippets}/game-search/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/game-search/http-response.adoc[]

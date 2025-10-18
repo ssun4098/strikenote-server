@@ -2,6 +2,7 @@ package com.ssun.strikenoteserver.game.controller;
 
 import com.ssun.strikenoteserver.game.dto.GameCreateRequest;
 import com.ssun.strikenoteserver.game.dto.GameCreateResponse;
+import com.ssun.strikenoteserver.game.dto.GameSearchResponse;
 import com.ssun.strikenoteserver.game.service.GameService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,15 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -230,5 +234,32 @@ class GameControllerTest {
                   .andDo(document("game-create"));
 
 
+     }
+
+     @Test
+     void testSearchGame() throws Exception {
+          // given
+          LocalDateTime createdAt = LocalDateTime.now();
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+          String formattedCreatedAt = createdAt.format(formatter);
+
+          List<GameSearchResponse> responses = List.of(GameSearchResponse.builder()
+                          .id(1L)
+                          .title("title")
+                          .strikes(1)
+                          .spares(1)
+                          .createdAt(createdAt)
+                  .build());
+
+          when(gameService.searchGames(any())).thenReturn(responses);
+
+          mockMvc.perform(get("/api/games"))
+                  .andExpect(status().isOk())
+                  .andExpect(jsonPath("$[0].id").value(1L))
+                  .andExpect(jsonPath("$[0].title").value("title"))
+                  .andExpect(jsonPath("$[0].strikes").value(1))
+                  .andExpect(jsonPath("$[0].spares").value(1))
+                  .andExpect(jsonPath("$[0].createdAt").value(formattedCreatedAt))
+                  .andDo(document("game-search"));
      }
 }
